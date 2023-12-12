@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+            position: relative;
+            color: black; /* Set text color to black */
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://e0.pxfuel.com/wallpapers/939/365/desktop-wallpaper-vintage-alarm-clock-bed-time-deadline-deprivation-get-up-%E2%80%A2-for-you-for-mobile-aesthetic-clock.jpg') center/cover fixed; /* Replace 'https://your_digital_timer_image_url.jpg' with your image URL */
+            z-index: -1;
+        }
+
+        h1 {
+            font-size: 5rem;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .timer {
+            font-size:4rem;
+            text-align: center;
+            margin:2px 0;
+        }
+
+        .est-time {
+            font-size: 2rem;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .alarm-label,
+        .alarm-input,
+        .set-alarm {
+            font-size: 2.5rem;
+            color: black; /* Set text color to black */
+        }
+
+        .alarm-label {
+            text-align: left; /* Align text to the left */
+        }
+
+        input {
+            font-size: 1.5rem;
+            padding: 10px;
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="submit"] {
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+        }
+    </style>
+    <title>ESP32 Web Interface</title>
+</head>
+<body>
+    <h1>CURRENT TIMER</h1>
+    <p class="timer">
+        
+    </p>
+    <p class="est-time" id="estTime"></p>
+    <p class="set-alarm">Set the Alarm</p>
+    <form action="/get" method="get">
+        <label class="alarm-label" for="inputText">Alarm Time:</label>
+        <input class="alarm-input" type="time" id="inputText" name="input1" required />
+        <br>
+        <input type="submit" value="Set Alarm">
+    </form>
+    <script>
+        // JavaScript to update live Eastern Standard Time
+        function updateEstTime() {
+            const estTimeElement = document.getElementById('estTime');
+            const est = new Date().toLocaleString('en-US', { timeZone: 'America/New_York' });
+            estTimeElement.innerHTML = est;
+        }
+
+        // Call the function initially
+        updateEstTime();
+
+        // Update every minute
+        setInterval(updateEstTime, 60000);
+    </script>
+</body>
+</html>
+
